@@ -1,0 +1,61 @@
+
+.table-font thead tr td{
+  font-size: 12px !important;
+  font-weight: bolder !important;
+  padding-left: 1px;
+  padding-right: 1px;
+  margin-left: 1px;
+  margin-right: 1px;
+  text-align: center;
+  }
+  .table-font tbody tr td{
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding-left: 1px;
+  padding-right: 1px;
+  margin-left: 1px;
+  margin-right: 1px;
+  text-align: center;
+  }
+  .img-zoom-div{
+    transition: transform .2s; 
+  }
+  .img-zoom-div:hover{
+    transform: scale(1.7);
+    z-index: 99;
+  }
+
+  /* customStyles.css */
+.rmdp-container {
+  display: block !important; 
+}
+
+
+.tally_sheet {
+  font-size: 12px !important;
+}
+
+.tally_sheet .top .table-font thead tr th {
+  font-size: 10px !important;
+  font-weight: bolder !important;
+  text-align: start !important;
+}
+
+.tally_sheet .top .table-font tbody tr td {
+  font-size: 11px !important;
+  padding: 0.5rem 1rem !important;
+  font-weight: normal !important;
+  text-align: start !important;
+}
+
+.tally_sheet .main .table-font thead tr th {
+  font-size: 10px !important;
+  padding: 0.35rem 0.7rem !important;
+  font-weight: bolder !important;
+}
+
+.tally_sheet .main .table-font tbody tr td {
+  font-size: 11px !important;
+  padding: 0.35rem 0.7rem !important;
+  font-weight: normal !important;
+}
