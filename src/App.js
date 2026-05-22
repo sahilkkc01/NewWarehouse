@@ -425,7 +425,7 @@ function TallySheetModal({ crn, onClose }) {
             {!loading && !error && (
               <>
                 <Btn bg={C.blue} size="sm" onClick={handlePrint}>🖨 Print</Btn>
-                <Btn bg={C.green} size="sm" onClick={handleDownload}>⬇ Download CSV</Btn>
+                {/* <Btn bg={C.green} size="sm" onClick={handleDownload}>⬇ Download CSV</Btn> */}
               </>
             )}
             <button onClick={onClose} style={{
@@ -657,6 +657,7 @@ export default function App() {
   const activeGridCtx = useRef(null);
   const [finishModal,    setFinishModal]    = useState(null);
   const [finalSubmitted, setFinalSubmitted] = useState(false);
+  const [activeTab, setActiveTab] = useState("ACTIVE");
 
   /* ── NEW: tally sheet state ── */
   const [tallyModal, setTallyModal] = useState(null); // { crn }
@@ -848,7 +849,10 @@ export default function App() {
     const declaredPackages = Number(sbData?.no_of_packages_declared || 0);
     setFinishModal({ sbNo, trucksForSb, grossWeight, declaredPackages, existingRows, isModify, jobCreatedAt, crn });
   };
-
+const filteredGateData =
+  activeTab === "FINISHED"
+    ? gateData.filter((x) => x.IS_FINISHED === 1)
+    : gateData.filter((x) => x.IS_FINISHED !== 1);
   /* ══════════════════════════════════ RENDER ══════════════════════════════════ */
   return (
     <div style={{ minHeight: "100vh", background: C.bg, fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
@@ -871,7 +875,55 @@ export default function App() {
           <h1 style={{ margin: 0, fontSize: 20, fontWeight: 800, color: C.navy }}>Gate Transactions</h1>
           <p style={{ margin: "3px 0 0", color: C.muted, fontSize: 13 }}>{gateData.length} active transaction{gateData.length !== 1 ? "s" : ""}</p>
         </div>
+<div
+  style={{
+    display: "flex",
+    gap: 10,
+    marginBottom: 18,
+  }}
+>
+  <button
+    onClick={() => setActiveTab("ACTIVE")}
+    style={{
+      padding: "9px 18px",
+      borderRadius: 10,
+      border: "none",
+      cursor: "pointer",
+      fontWeight: 700,
+      background:
+        activeTab === "ACTIVE"
+          ? C.blue
+          : "#e2e8f0",
+      color:
+        activeTab === "ACTIVE"
+          ? "#fff"
+          : C.navy,
+    }}
+  >
+    Active
+  </button>
 
+  <button
+    onClick={() => setActiveTab("FINISHED")}
+    style={{
+      padding: "9px 18px",
+      borderRadius: 10,
+      border: "none",
+      cursor: "pointer",
+      fontWeight: 700,
+      background:
+        activeTab === "FINISHED"
+          ? C.green
+          : "#e2e8f0",
+      color:
+        activeTab === "FINISHED"
+          ? "#fff"
+          : C.navy,
+    }}
+  >
+    Finished
+  </button>
+</div>
         <div style={{ background: C.bgCard, borderRadius: 13, boxShadow: "0 2px 14px rgba(0,0,0,.07)", overflow: "hidden" }}>
           <div style={{ overflowX: "auto" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 480 }}>
@@ -879,9 +931,9 @@ export default function App() {
                 <tr>{["#", "Gate", "Vehicle No.", "Permit No.", "CRN", "Status", "Action"].map((h) => <th key={h} style={S.th}>{h}</th>)}</tr>
               </thead>
               <tbody>
-                {gateData.length === 0 ? (
+                {filteredGateData.length === 0 ? (
                   <tr><td colSpan={7} style={{ ...S.td, textAlign: "center", padding: 40, color: C.subtle }}><div style={{ fontSize: 28, marginBottom: 8 }}>📭</div>No active gate transactions</td></tr>
-                ) : gateData.map((item, i) => (
+             ) : filteredGateData.map((item, i) => (
                   <tr key={i} style={{ background: i % 2 ? "#fafbfc" : "#fff" }}
                     onMouseEnter={e => e.currentTarget.style.background = "#f0f6ff"}
                     onMouseLeave={e => e.currentTarget.style.background = i % 2 ? "#fafbfc" : "#fff"}
