@@ -531,7 +531,22 @@ export default function ExportStuffing() {
                           background: idx % 2 === 0 ? C.bg : "#fff",
                         }}>
                           <span style={{ flex: "0 0 180px", fontSize: 13, fontWeight: 600, color: C.muted }}>{label}</span>
-                          <span style={{ fontSize: 13, color: C.text, fontWeight: label === "Excess / Short Packages" ? 700 : 400, color: label === "Excess / Short Packages" ? (shortExcessPackages < 0 ? C.red : shortExcessPackages > 0 ? C.orange : C.green) : C.text }}>{value}</span>
+                        <span
+  style={{
+    fontSize: 13,
+    fontWeight: label === "Excess / Short Packages" ? 700 : 400,
+    color:
+      label === "Excess / Short Packages"
+        ? shortExcessPackages < 0
+          ? C.red
+          : shortExcessPackages > 0
+          ? C.orange
+          : C.green
+        : C.text,
+  }}
+>
+  {value}
+</span>
                         </div>
                       ))}
                     </div>
