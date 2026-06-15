@@ -171,7 +171,7 @@ function TallySheetModal({ crn, onClose }) {
     const shippingBills  = parseSBList(carting_data?.shipping_bill_details_list);
     const sbNos          = [...new Set((shipping_bill_rows || []).map(r => r.SHIPPING_BILL_NO))];
 
-    const firstSB        = shippingBills[0] || {};
+    // const firstSB        = shippingBills[0] || {};
     const allTrucks      = [...new Set((shipping_bill_rows || []).map(r => r.TRUCK_NO).filter(Boolean))];
     const firstRow       = (shipping_bill_rows || []).find(r => r.WAREHOUSE) || {};
     const startTime      = firstRow.START_TIME ? firstRow.START_TIME.replace("T", " ") : "-";
@@ -182,10 +182,10 @@ function TallySheetModal({ crn, onClose }) {
     const containerNo    = carting_data?.Container_details?.container_number || "-";   
      const shippingLinerCode = carting_data?.shipping_liner_code || "-"; 
     const containerSize  = carting_data?.Container_details?.container_size   || "-";
-    const containerType  = carting_data?.Container_details?.container_type   || "-";
+    // const containerType  = carting_data?.Container_details?.container_type   || "-";
     const gwPortCode     = carting_data?.gw_port_code || carting_data?.GW_Port_Code || "-";
     const chaCode        = carting_data?.cha_code     || carting_data?.CHA_Code     || "-";
-    const slineCode      = carting_data?.sline_code   || carting_data?.Sline_Code   || "-";
+    // const slineCode      = carting_data?.sline_code   || carting_data?.Sline_Code   || "-";
 
     const realRows = (shipping_bill_rows || []).filter(r => r.WAREHOUSE);
     const totalPkgs = realRows.reduce((s, r) => s + Number(r.NO_OF_PACKAGES || 0), 0);
@@ -1098,7 +1098,7 @@ useEffect(() => {
             return rows.length > 0 && rows.every((r) => r.JOB_STATUS === "FINISHED");
           });
         };
-        const comboHasGrid   = (truckNo, sbNo) => getComboRows(truckNo, sbNo).some((r) => r.WAREHOUSE);
+        // const comboHasGrid   = (truckNo, sbNo) => getComboRows(truckNo, sbNo).some((r) => r.WAREHOUSE);
 
         return (
           <div style={S.overlay}>

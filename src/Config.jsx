@@ -1,4 +1,4 @@
-const protocol = window.location.protocol
+// const protocol = window.location.protocol
 
 const ApiBaseUrl=`https://ctas.live/backend/api/`;
 const OcrImgBaseUrl=`https://ctas.live/ocr_backend/warehouse/`;

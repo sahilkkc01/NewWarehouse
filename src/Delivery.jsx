@@ -638,26 +638,26 @@ savedMap[key] = Object.values(grouped).map(
 
 const trucksPayload = trucks.map((truck, truckIndex) => {
 
-  const gridLocations = matches
-    .map((l) => l.LOCATION_CODE)
-    .join(", ");
+  // const gridLocations = matches
+  //   .map((l) => l.LOCATION_CODE)
+  //   .join(", ");
 
-  const area = matches
-    .map((loc) => {
-      const a = Number(loc.AREA || 0);
+  // const area = matches
+  //   .map((loc) => {
+  //     const a = Number(loc.AREA || 0);
 
-      const base = Math.floor(
-        a / totalTruckCount
-      );
+  //     const base = Math.floor(
+  //       a / totalTruckCount
+  //     );
 
-      const rem = a % totalTruckCount;
+  //     const rem = a % totalTruckCount;
 
-      return (
-        base +
-        (truckIndex < rem ? 1 : 0)
-      );
-    })
-    .join(", ");
+  //     return (
+  //       base +
+  //       (truckIndex < rem ? 1 : 0)
+  //     );
+  //   })
+  //   .join(", ");
 
   const gridData = matches.map((loc) => {
   const a = Number(loc.AREA || 0);
