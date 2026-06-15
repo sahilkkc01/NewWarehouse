@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import Legend from "./Legend";
 import { Link } from "react-router-dom";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { ApiBaseUrl } from "../Config";
+import { ApiBaseUrl, LocalApiBaseUrl } from "../Config";
 
 export default function OycMap({
   setActiveGridSelection,
@@ -120,14 +120,11 @@ export default function OycMap({
   const [loading, setLoading] = useState(false);
 
   const GetData = useCallback(async () => {
-    setLoading(true);
+     setLoading(true);
     try {
-      const response = await axios.get(
-        `${ApiBaseUrl}export/map/data?name=OYC`,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+       const response = await axios.get(
+      `${LocalApiBaseUrl}getoycmapdata`
+    );
 
       if (response.data?.data) {
         setData(response.data.data);

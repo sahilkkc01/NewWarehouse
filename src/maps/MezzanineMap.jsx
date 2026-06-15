@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import Legend from "./Legend";
-import { ApiBaseUrl } from "../Config";
+import { ApiBaseUrl, LocalApiBaseUrl } from "../Config";
 
 export default function MezzanineMap({
   setActiveGridSelection,
@@ -96,11 +96,11 @@ export default function MezzanineMap({
     setLoading(true);
     const url = `${ApiBaseUrl}export/map/data?name=Mazzanine`;
     try {
-      const response = await axios.get(url, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+     const response = await axios.get(
+      `${LocalApiBaseUrl}getmezzaninemapdata`
+    );
+
+    console.log(response.data);
 
       if (response.data && response.data.data) {
         setData(response.data.data);
@@ -205,11 +205,24 @@ export default function MezzanineMap({
       const total_area = Number(data?.total_area ?? 20);
       const occupied = Number(data?.occupied_area ?? 0);
       const ocr_occupied = Number(data?.ocr_occupied_area ?? 0);
-      const grid_allocation = JSON.parse(data?.grid_allocation) ?? {};
+      const grid_allocation = (() => {
+  try {
+    if (!data?.grid_allocation) return {};
+    if (typeof data.grid_allocation === 'object') return data.grid_allocation;
+    return JSON.parse(data.grid_allocation) ?? {};
+  } catch { return {}; }
+})();
+
+
       const carting_data = data?.carting_data ?? [];
 
-      const ocr_grid_wise_occupied =
-        JSON.parse(data?.ocr_grid_wise_occupied) ?? {};
+     const ocr_grid_wise_occupied = (() => {
+  try {
+    if (!data?.ocr_grid_wise_occupied) return {};
+    if (typeof data.ocr_grid_wise_occupied === 'object') return data.ocr_grid_wise_occupied;
+    return JSON.parse(data.ocr_grid_wise_occupied) ?? {};
+  } catch { return {}; }
+})();
 
         TotalAreaSum += Number(total_area);
 

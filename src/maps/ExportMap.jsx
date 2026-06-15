@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import Swal from "sweetalert2";
 import Legend from "./Legend";
-import { ApiBaseUrl } from "../Config";
+import { ApiBaseUrl, LocalApiBaseUrl } from "../Config";
 
 export default function ExportMap({
   setActiveGridSelection,
@@ -101,13 +101,11 @@ export default function ExportMap({
 
   const GetData = async () => {
     setLoading(true);
-    const url = `${ApiBaseUrl}export/map/data?name=Export`;
+    
     try {
-      const response = await axios.get(url, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+     const response = await axios.get(
+      `${LocalApiBaseUrl}getexportmapdata`
+    );
 
       if (response.data && response.data.data) {
         setData(response.data.data);

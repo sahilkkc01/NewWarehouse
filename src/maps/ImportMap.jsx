@@ -172,18 +172,29 @@ export default function ImportMap({
 
       const locationId = gridBox.querySelector("span")?.id;
       const clickedData = Data.find(
-        (data) => data.camera_locations === locationId
-      );
+  (data) => data.camera_locations === locationId
+);
 
-        setSelectedGrids((prev) => {
-          if (prev.hasOwnProperty(clickedData.new_location_code)) {
-            return prev;
-          }
-          return {
-            ...prev,
-            [clickedData.new_location_code]: [],
-          };
-        });
+if (!clickedData) {
+  console.log("clickedData not found", locationId);
+  return;
+}
+
+const locationCode =
+  clickedData.new_location_code ||
+  clickedData.location_code ||
+  clickedData.camera_locations;
+
+setSelectedGrids((prev) => {
+  if (prev.hasOwnProperty(locationCode)) {
+    return prev;
+  }
+
+  return {
+    ...prev,
+    [locationCode]: [],
+  };
+});
 
         setActiveGridSelection(clickedData); 
         onClose();
